@@ -62,7 +62,7 @@ const HomePage = () => {
         style={{
           display: "flex",
           justifyContent: "flex-end",
-          marginBottom: "1rem",
+          marginBottom: "2rem",
         }}
       >
         <Button
@@ -74,16 +74,16 @@ const HomePage = () => {
           Add New Car
         </Button>
       </div>
-      <Typography
+      {/* <Typography
         variant="h4"
         style={{ textAlign: "center", marginBottom: "2rem" }}
       >
         Available Cars
-      </Typography>
+      </Typography> */}
 
-      <Grid container spacing={4}>
+      <Grid container spacing={4} justifyContent="center">
         {cars.map((car) => (
-          <Grid item key={car.id} xs={12} sm={6} md={4}>
+          <Grid item key={car.id} xs={12} sm={6} md={3}>
             <CarCard car={car} />
           </Grid>
         ))}

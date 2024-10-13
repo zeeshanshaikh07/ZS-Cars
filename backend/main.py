@@ -34,20 +34,20 @@ except Exception as e:
 
 # Pydantic model for car
 class Car(BaseModel):
-    name: str
-    price: str
-    image: str
-    description: str
+    make: str  # Car make (e.g., Toyota, Honda)
+    model: str  # Car model (e.g., Corolla, Civic)
+    price: str  # Price of the car
+    image: str  # URL of the car image
 
 
 # Helper function to convert ObjectId to string
 def car_helper(car) -> dict:
     return {
-        "id": str(car["_id"]),
-        "name": car["name"],
-        "price": car["price"],
-        "image": car["image"],
-        "description": car["description"],
+        "id": str(car["_id"]),  # Convert ObjectId to string
+        "make": car["make"],  # Retrieve car make
+        "model": car["model"],  # Retrieve car model
+        "price": car["price"],  # Retrieve price
+        "image": car["image"],  # Retrieve image URL
     }
 
 
