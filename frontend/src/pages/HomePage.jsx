@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import CarCard from "../CarCard"; // Ensure this is correctly imported
+import CarCard from "../components/CarCard"; // Ensure this is correctly imported
 import CircularProgress from "@mui/material/CircularProgress"; // For loading indicator
 import Typography from "@mui/material/Typography"; // For consistent typography
 import Grid from "@mui/material/Grid2";
@@ -74,13 +74,6 @@ const HomePage = () => {
           Add New Car
         </Button>
       </div>
-      {/* <Typography
-        variant="h4"
-        style={{ textAlign: "center", marginBottom: "2rem" }}
-      >
-        Available Cars
-      </Typography> */}
-
       <Grid container spacing={4} justifyContent="center">
         {cars.map((car) => (
           <Grid item key={car.id} xs={12} sm={6} md={3}>
