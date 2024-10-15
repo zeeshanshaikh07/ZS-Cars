@@ -8,19 +8,21 @@ import {
   Snackbar,
   CardContent,
   Card,
+  CardMedia,
   CardActions,
   IconButton,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Box } from "@mui/system";
 
 const AdminPage = () => {
   const [cars, setCars] = useState([]);
   const [newCar, setNewCar] = useState({
-    name: "",
+    make: "",
+    model: "",
     price: "",
     image: "",
-    description: "",
   });
   const [loading, setLoading] = useState(false); // Loading state for adding a car
   const [errorMessage, setErrorMessage] = useState(""); // Error message state
@@ -52,7 +54,7 @@ const AdminPage = () => {
       // Fetch updated list of cars
       const response = await axios.get("http://localhost:8000/cars");
       setCars(response.data);
-      setNewCar({ name: "", price: "", image: "", description: "" });
+      setNewCar({ make: "", model: "", price: "", image: "" });
     } catch (error) {
       console.error("Error adding car:", error);
       setErrorMessage("Error adding car. Please check your input.");
@@ -73,25 +75,55 @@ const AdminPage = () => {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <Typography variant="h4" align="center" gutterBottom>
+    <Box
+      sx={{ padding: "2rem", backgroundColor: "#f5f5f5", minHeight: "100vh" }}
+    >
+      <Typography
+        variant="h4"
+        align="center"
+        gutterBottom
+        sx={{ fontWeight: "bold", marginBottom: "2rem" }}
+      >
         Admin Dashboard
       </Typography>
+
       {/* Car Form */}
-      <Card style={{ marginBottom: "2rem", padding: "1rem" }}>
+      <Card
+        sx={{
+          marginBottom: "2rem",
+          padding: "2rem",
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
         <CardContent>
-          <Typography variant="h6" gutterBottom>
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ fontWeight: "bold", color: "#1976d2" }}
+          >
             Add New Car
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
-                label="Name"
-                name="name"
-                value={newCar.name}
+                label="Make"
+                name="make"
+                value={newCar.make}
                 onChange={handleInputChange}
                 variant="outlined"
+                sx={{ marginBottom: "1rem" }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Model"
+                name="model"
+                value={newCar.model}
+                onChange={handleInputChange}
+                variant="outlined"
+                sx={{ marginBottom: "1rem" }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -102,6 +134,7 @@ const AdminPage = () => {
                 value={newCar.price}
                 onChange={handleInputChange}
                 variant="outlined"
+                sx={{ marginBottom: "1rem" }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -112,20 +145,9 @@ const AdminPage = () => {
                 value={newCar.image}
                 onChange={handleInputChange}
                 variant="outlined"
+                sx={{ marginBottom: "1rem" }}
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Description"
-                name="description"
-                value={newCar.description}
-                onChange={handleInputChange}
-                multiline
-                rows={4}
-                variant="outlined"
-              />
-            </Grid> */}
           </Grid>
         </CardContent>
         <CardActions style={{ justifyContent: "flex-end" }}>
@@ -135,38 +157,70 @@ const AdminPage = () => {
             onClick={addCar}
             disabled={loading}
             startIcon={loading ? <CircularProgress size={24} /> : null}
+            sx={{ boxShadow: "0 3px 5px rgba(0, 0, 0, 0.2)" }}
           >
             {loading ? "Adding..." : "Add Car"}
           </Button>
         </CardActions>
       </Card>
       {/* Available Cars */}
-      <Typography variant="h5" gutterBottom align="center">
+      <Typography
+        variant="h5"
+        gutterBottom
+        align="center"
+        sx={{ fontWeight: "bold", color: "#333", marginBottom: "2rem" }}
+      >
         Available Cars
       </Typography>
       <Grid container spacing={4}>
         {cars.map((car) => (
           <Grid item key={car.id} xs={12} sm={6} md={4}>
-            <Card>
+            <Card
+              sx={{
+                transition: "0.3s",
+                "&:hover": {
+                  transform: "translateY(-5px)",
+                  boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
+                  cursor: "pointer",
+                },
+              }}
+            >
+              <CardMedia
+                component="img"
+                height="180"
+                image={car.image}
+                alt={`${car.make} ${car.model}`}
+                sx={{ objectFit: "cover" }} // Ensures the image covers the area nicely
+              />
               <CardContent>
-                <Typography variant="h6">{car.name}</Typography>
-                <Typography variant="body1" color="textSecondary">
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: "bold", color: "#1976d2" }}
+                >
+                  {car.make}
+                </Typography>
+                <Typography variant="h6">{car.model}</Typography>
+                <Typography
+                  variant="body1"
+                  color="textSecondary"
+                  sx={{ marginBottom: "0.5rem" }}
+                >
                   Price: {car.price}
                 </Typography>
                 <Typography variant="body2">{car.description}</Typography>
               </CardContent>
-              <CardActions style={{ justifyContent: "space-between" }}>
-                {/* <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => removeCar(car.id)}
-                >
-                  Delete
-                </Button> */}
+              <CardActions sx={{ justifyContent: "space-between" }}>
                 <IconButton
                   aria-label="delete"
                   color="primary"
                   onClick={() => removeCar(car.id)}
+                  sx={{
+                    transition: "0.3s",
+                    "&:hover": {
+                      color: "red",
+                      transform: "scale(1.1)",
+                    },
+                  }}
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -198,7 +252,7 @@ const AdminPage = () => {
           </Button>
         }
       />
-    </div>
+    </Box>
   );
 };
 
