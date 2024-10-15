@@ -76,13 +76,26 @@ const AdminPage = () => {
 
   return (
     <Box
-      sx={{ padding: "2rem", backgroundColor: "#f5f5f5", minHeight: "100vh" }}
+      sx={{
+        padding: "2rem",
+        backgroundColor: "#fafafa",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
     >
       <Typography
         variant="h4"
         align="center"
         gutterBottom
-        sx={{ fontWeight: "bold", marginBottom: "2rem" }}
+        sx={{
+          fontWeight: "bold",
+          marginBottom: "2rem",
+          color: "#2c3e50",
+          textTransform: "uppercase",
+          letterSpacing: "0.1rem",
+        }}
       >
         Admin Dashboard
       </Typography>
@@ -92,18 +105,27 @@ const AdminPage = () => {
         sx={{
           marginBottom: "2rem",
           padding: "2rem",
-          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+          boxShadow: "0 6px 20px rgba(0, 0, 0, 0.1)",
+          borderRadius: "15px",
+          backgroundColor: "#fff",
+          maxWidth: "950px", // Increased width for a better fit
+          width: "100%",
         }}
       >
         <CardContent>
           <Typography
             variant="h6"
             gutterBottom
-            sx={{ fontWeight: "bold", color: "#1976d2" }}
+            sx={{
+              fontWeight: "bold",
+              color: "#2980b9",
+              fontSize: "1.4rem", // Slightly larger font size for emphasis
+              textAlign: "center"
+            }}
           >
             Add New Car
           </Typography>
-          <Grid container spacing={2}>
+          <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
@@ -112,7 +134,10 @@ const AdminPage = () => {
                 value={newCar.make}
                 onChange={handleInputChange}
                 variant="outlined"
-                sx={{ marginBottom: "1rem" }}
+                sx={{
+                  marginBottom: "1.5rem", // Increased bottom margin for spacing
+                  borderRadius: "8px",
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -123,7 +148,10 @@ const AdminPage = () => {
                 value={newCar.model}
                 onChange={handleInputChange}
                 variant="outlined"
-                sx={{ marginBottom: "1rem" }}
+                sx={{
+                  marginBottom: "1.5rem", // Increased bottom margin for spacing
+                  borderRadius: "8px",
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -134,7 +162,10 @@ const AdminPage = () => {
                 value={newCar.price}
                 onChange={handleInputChange}
                 variant="outlined"
-                sx={{ marginBottom: "1rem" }}
+                sx={{
+                  marginBottom: "1.5rem", // Increased bottom margin for spacing
+                  borderRadius: "8px",
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -145,7 +176,10 @@ const AdminPage = () => {
                 value={newCar.image}
                 onChange={handleInputChange}
                 variant="outlined"
-                sx={{ marginBottom: "1rem" }}
+                sx={{
+                  marginBottom: "1.5rem", // Increased bottom margin for spacing
+                  borderRadius: "8px",
+                }}
               />
             </Grid>
           </Grid>
@@ -157,7 +191,18 @@ const AdminPage = () => {
             onClick={addCar}
             disabled={loading}
             startIcon={loading ? <CircularProgress size={24} /> : null}
-            sx={{ boxShadow: "0 3px 5px rgba(0, 0, 0, 0.2)" }}
+            sx={{
+              background: "linear-gradient(45deg, #2980b9, #3498db)", // Bluish gradient
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+              color: "#fff",
+              borderRadius: "10px",
+              padding: "0.8rem 2rem", // Padding for a bold button appearance
+              fontWeight: "bold",
+              fontSize: "1rem",
+              "&:hover": {
+                background: "linear-gradient(45deg, #3498db, #2980b9)", // Hover effect with reversed gradient
+              },
+            }}
           >
             {loading ? "Adding..." : "Add Car"}
           </Button>
@@ -168,19 +213,27 @@ const AdminPage = () => {
         variant="h5"
         gutterBottom
         align="center"
-        sx={{ fontWeight: "bold", color: "#333", marginBottom: "2rem" }}
+        sx={{
+          fontWeight: "bold",
+          color: "#34495e",
+          marginBottom: "2rem",
+          textTransform: "uppercase",
+          letterSpacing: "0.08rem",
+        }}
       >
         Available Cars
       </Typography>
-      <Grid container spacing={4}>
+      <Grid container spacing={4} justifyContent="center">
         {cars.map((car) => (
           <Grid item key={car.id} xs={12} sm={6} md={4}>
             <Card
               sx={{
                 transition: "0.3s",
+                borderRadius: "15px",
+                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
                 "&:hover": {
-                  transform: "translateY(-5px)",
-                  boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
+                  transform: "translateY(-10px)",
+                  boxShadow: "0 10px 30px rgba(0, 0, 0, 0.15)",
                   cursor: "pointer",
                 },
               }}
@@ -190,12 +243,12 @@ const AdminPage = () => {
                 height="180"
                 image={car.image}
                 alt={`${car.make} ${car.model}`}
-                sx={{ objectFit: "cover" }} // Ensures the image covers the area nicely
+                sx={{ objectFit: "cover", borderRadius: "15px 15px 0 0" }}
               />
               <CardContent>
                 <Typography
                   variant="h6"
-                  sx={{ fontWeight: "bold", color: "#1976d2" }}
+                  sx={{ fontWeight: "bold", color: "#2980b9" }}
                 >
                   {car.make}
                 </Typography>
@@ -205,9 +258,8 @@ const AdminPage = () => {
                   color="textSecondary"
                   sx={{ marginBottom: "0.5rem" }}
                 >
-                  Price: {car.price}
+                  Price: ₹{car.price}
                 </Typography>
-                <Typography variant="body2">{car.description}</Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: "space-between" }}>
                 <IconButton
